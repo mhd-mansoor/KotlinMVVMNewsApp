@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androiddevs.mvvmnewsapp.NewsActivity
 import com.androiddevs.mvvmnewsapp.R
@@ -31,6 +32,15 @@ class BrakingNewsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         listenLiveData()
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_brakingNewsFragment2_to_articleFragment2,
+                bundle
+            )
+        }
 
     }
 
@@ -59,6 +69,7 @@ class BrakingNewsFragment : BaseFragment() {
             }
         })
     }
+
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
         rvBreakingNews.apply {
