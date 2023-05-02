@@ -59,15 +59,6 @@ class BrakingNewsFragment : BaseFragment() {
             }
         })
     }
-
-    private fun hideProgressBar() {
-        paginationProgressBar.visibility = View.GONE
-    }
-
-    private fun showProgressBar() {
-        paginationProgressBar.visibility = View.VISIBLE
-    }
-
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
         rvBreakingNews.apply {
