@@ -2,11 +2,13 @@ package com.androiddevs.mvvmnewsapp.db
 
 import android.content.Context
 import androidx.room.*
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.androiddevs.mvvmnewsapp.model.Article
 
 @Database(
     entities = [Article::class],
-    version = 1
+    version = 2
 )
 
 @TypeConverters(Converters::class)
@@ -20,15 +22,14 @@ abstract class ArticleDatabase : RoomDatabase() {
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            instance ?: createDatbase(context).also { instance = it }
+            instance ?: createDatabase(context).also { instance = it }
         }
 
-        private fun createDatbase(context: Context) = Room.databaseBuilder(
+        private fun createDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             ArticleDatabase::class.java,
             "article_db.db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
-
-
 }

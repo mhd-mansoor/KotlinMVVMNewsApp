@@ -9,17 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.androiddevs.mvvmnewsapp.NewsActivity
 import com.androiddevs.mvvmnewsapp.R
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_article.*
 
 class ArticleFragment : BaseFragment() {
 
-    val args : ArticleFragmentArgs by navArgs()
+    val args: ArticleFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_article,container,false)
+        return inflater.inflate(R.layout.fragment_article, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,6 +29,11 @@ class ArticleFragment : BaseFragment() {
         webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url)
+        }
+
+        fab.setOnClickListener {
+            viewModel.saveArticle(article)
+            Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
         }
     }
 }
