@@ -8,7 +8,7 @@ import com.androiddevs.mvvmnewsapp.model.Article
 
 @Database(
     entities = [Article::class],
-    version = 2
+    version = 3
 )
 
 @TypeConverters(Converters::class)
